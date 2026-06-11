@@ -10,6 +10,8 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from dotenv import load_dotenv
 import os
 
+from ai_response import ai_process
+
 load_dotenv()
 token = os.environ.get("MY_TOKEN")
 secret_number = os.environ.get("MY_SECRET")
@@ -21,7 +23,7 @@ def linebot():
     try:
         json_data = json.loads(body)                         # json 格式化訊息內容
         access_token = token
-        secret = ''
+        secret = secret_number
         line_bot_api = LineBotApi(access_token)              # 確認 token 是否正確
         handler = WebhookHandler(secret)                     # 確認 secret 是否正確
         
@@ -30,7 +32,7 @@ def linebot():
         tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
         type = json_data['events'][0]['message']['type']     # 取得 LINe 收到的訊息類型
         if type=='text':
-            msg = json_data['events'][0]['message']['text']  # 取得 LINE 收到的文字訊息
+            msg = ai_process(json_data['events'][0]['message']['text'])  # 取得 LINE 收到的文字訊息
             print(msg)                                       # 印出內容
             reply = msg
         else:
