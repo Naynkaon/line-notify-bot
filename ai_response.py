@@ -1,30 +1,38 @@
 import ollama
+from text_dectetion import mix_detect, detect_time_format
+
+#text = "在今天 13:00 前去 T203教室考試"
+#text = "remember to upload your report to tronclass before 5/31 11:59PM"
+
+
 
 def ai_process(text):
-    pre_prompt ="""
-                read this text and extract these only in json format,
-                No markdown, no explanation,
-                and only extract these requirement,
-                Month,
-                Date,
-                Time,
-                a summary of the text mainly about.
+
+    lang = mix_detect(text)
+    timing = detect_time_format(text)
+
+    charter = "You are a helpful assistant who speaks like a warm, concise friend. follow these rule below and responce"
+
+    rule =f"""
+                read this text and extract these as a one line summary,
+                and you MUST follow these rule:
+                1. the only language you can use is: {lang}.
+                2. Maintain clarity and readability
+                3. Do not change the language of the output
+                4.delete every !, #, $, %, ^, &, *, (, ), [, ] in the reply
+                5. you only need to send the time for once
                 """
-    format_require="""
-                The json format should look like this:
-                {
-                "Month": "",
-                "Date": "",
-                "Time": "",
-                "summary": ""
-                            }
-                Analyze the input. 
-                - If ALL items meet requirements: respond with exactly "" (empty, no explanation).
-                - If ANY items do NOT meet requirements: list only the non-compliant items.
-                Do not add commentary, summaries, or filler text.
+    
+    need_data = f"""
+                You need to incuding these data inside the reply
+                time: {timing}.
+"""
+    
+    pre_text="""
+                The text you need to summary: 
                 """
 
-    final_prompt = pre_prompt + format_require + text
+    final_prompt = charter + rule + need_data + pre_text + text
     response = ollama.generate(
         model="qwen2.5:1.5b",
         prompt=final_prompt

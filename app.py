@@ -10,6 +10,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from dotenv import load_dotenv
 import os
 
+#載入 ai 的預設提示詞
 from ai_response import ai_process
 
 load_dotenv()
