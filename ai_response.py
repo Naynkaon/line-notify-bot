@@ -21,6 +21,7 @@ def ai_process(text):
                 3. Do not change the language of the output
                 4.delete every !, #, $, %, ^, &, *, (, ), [, ] in the reply
                 5. you only need to send the time for once
+                6.keeping the original meaning
                 """
     
     need_data = f"""
