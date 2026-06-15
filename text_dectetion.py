@@ -4,8 +4,8 @@ from datetime import datetime
 
 DetectorFactory.seed = 0
 
-def check_calling(text):
-    return bool(re.search(r'@A-mouse', text))
+def check_calling(startword,text):
+    return bool(re.search(startword, text))
 
 def mix_detect(text):
     # Count CJK characters (Traditional Chinese range)
