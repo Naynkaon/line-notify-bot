@@ -12,6 +12,8 @@ import os
 
 #載入 ai 的預設提示詞
 from ai_response import ai_process
+#載入 偵測 ai 啟動詞函式
+from text_dectetion import check_calling
 
 load_dotenv()
 token = os.environ.get("MY_TOKEN")
@@ -33,11 +35,11 @@ def linebot():
         tk = json_data['events'][0]['replyToken']            # 取得回傳訊息的 Token
         type = json_data['events'][0]['message']['type']     # 取得 LINe 收到的訊息類型
         if type=='text':
-            msg = ai_process(json_data['events'][0]['message']['text'])  # 取得 LINE 收到的文字訊息
-            print(msg)                                       # 印出內容
-            reply = msg
+            if check_calling(json_data['events'][0]['message']['text']): # 確認是否收到啟動詞
+                msg = ai_process(json_data['events'][0]['message']['text'])  # 取得 LINE 收到的文字訊息並傳送給 AI
+                reply = msg #回復 AI 產生的內容
         else:
-            reply = '你傳的不是文字呦～'
+            reply = '你傳的不是文字'
         print(reply)
         line_bot_api.reply_message(tk,TextSendMessage(reply))# 回傳訊息
     except:

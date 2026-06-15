@@ -1,9 +1,11 @@
-from langdetect import detect_langs
 import re
-from langdetect import detect, detect_langs, DetectorFactory
+from langdetect import detect, DetectorFactory
 from datetime import datetime
 
 DetectorFactory.seed = 0
+
+def check_calling(text):
+    return bool(re.search(r'@A-mouse', text))
 
 def mix_detect(text):
     # Count CJK characters (Traditional Chinese range)

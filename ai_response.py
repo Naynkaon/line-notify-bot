@@ -4,8 +4,6 @@ from text_dectetion import mix_detect, detect_time_format
 #text = "在今天 13:00 前去 T203教室考試"
 #text = "remember to upload your report to tronclass before 5/31 11:59PM"
 
-
-
 def ai_process(text):
 
     lang = mix_detect(text)
@@ -19,9 +17,9 @@ def ai_process(text):
                 1. the only language you can use is: {lang}.
                 2. Maintain clarity and readability
                 3. Do not change the language of the output
-                4.delete every !, #, $, %, ^, &, *, (, ), [, ] in the reply
+                4. delete every !, #, $, %, ^, &, *, (, ), [, ] in the reply
                 5. you only need to send the time for once
-                6.keeping the original meaning
+                6. keeping the original meaning
                 """
     
     need_data = f"""
