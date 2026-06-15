@@ -1,25 +1,26 @@
-import re
-from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
+from linebot.models import TextSendMessage
 
-def get_run_time(text):
-    match = re.search(r'\b([01]?\d|2[0-3]):([0-5]\d)\b', text)
-    if not match:
-        return None
+from text_dectetion import replace_format
 
-    hour, minute = int(match.group(1)), int(match.group(2))
-    now = datetime.now()
-    run_time = now.replace(hour=hour, minute=minute, second=0, microsecond=0)
+scheduler = BackgroundScheduler()
+scheduler.start()
 
-    # If the time has already passed today, schedule for tomorrow
-    if run_time < now:
-        run_time += timedelta(days=1)
 
-    return run_time
+def send_reminder(line_bot_api, user_id, message):
+    line_bot_api.push_message(user_id, TextSendMessage(text=message))
 
-def set_scheduler(job,StartTime):
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(job, 'date', run_date=get_run_time(StartTime))
-    scheduler.start()
 
-    return "成功設定提醒"
+def set_schedule(line_bot_api, user_id, time_text):
+    run_time = replace_format(time_text)
+
+    if run_time is None:
+        return False
+
+    scheduler.add_job(
+        send_reminder,
+        'date',
+        run_date=run_time,
+        args=[line_bot_api, user_id, time_text],
+    )
+    return True

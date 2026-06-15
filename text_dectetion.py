@@ -28,3 +28,23 @@ def detect_time_format(text):
     pattern = r'\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)?'
     times = re.findall(pattern,text)
     return times
+
+def replace_format(text):
+    pattern = r'(\d{1,2})/(\d{1,2})\s+(\d{1,2}):(\d{2})\s*(AM|PM)'
+    match = re.search(pattern, text, re.IGNORECASE)
+
+    if match:
+        month, day, hour, minute, ampm = match.groups()
+        month, day, hour, minute = map(int, (month, day, hour, minute))
+
+        if ampm.upper() == "PM" and hour != 12:
+            hour += 12
+        elif ampm.upper() == "AM" and hour == 12:
+            hour = 0
+
+        result = datetime.now().replace(
+            month=month, day=day, hour=hour, minute=minute-10,
+            second=0, microsecond=0
+        )
+        return result
+    
