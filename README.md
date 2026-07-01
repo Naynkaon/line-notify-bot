@@ -23,12 +23,15 @@ MY_TOKEN = <YOUR_LINE_BOT_TOKEN>
 MY_SECRET = <YOUR_LINE_BOT_SECRET>
 ```
 
-4. run these command in your project cmd
+4. run ngrok tunnel in your project cmd first
 ```cmd
 ngrok https 5000
+```
+5. open another cmd to run the main python program
+```cmd
 python app.py
 ```
-and then you have it, a notify bot in your line
+and then you have it, a notify bot in your line, enjoy!
 
 credit:
     my friend -- 
