@@ -1,10 +1,9 @@
-#line notice robot
+# line notice robot
 line notice robot is a semi-automate bot that will auto notify you
 base on the text you given on LINE.
 
-##pre install
+## pre install
 1. install [ngrok](https://ngrok.com/download/windows) in your computer
-    follow ngrok's setup tutorial
 
 2. change the Token and secret to your line bot
 3. run ngrok 5000 in terminal
