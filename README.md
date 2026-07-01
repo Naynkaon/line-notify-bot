@@ -6,14 +6,14 @@ base on the text you given on LINE.
 1.clone this repository into your familer folder
 
 ```bash
-    git clone https://github.com/Naynkaon/line-notify-bot.git
+git clone https://github.com/Naynkaon/line-notify-bot.git
 ```
 
 2. install [ngrok](https://ngrok.com/download/windows) in your computer
 
-run this code in your terminal, **replace <YOUR_AUTHTOKEN> into your ngrok Token ** 
+run this code in your terminal, replace <YOUR_AUTHTOKEN> into your ngrok Token
 ```bash
-    ngrok config add-authtoken "<YOUR_AUTHTOKEN>"   
+ngrok config add-authtoken "<YOUR_AUTHTOKEN>"   
 ```
 3. creating a **.env** file under the project folder, and copy and paste this text into it
 ```.env
@@ -23,8 +23,11 @@ MY_TOKEN = <YOUR_LINE_BOT_TOKEN>
 MY_SECRET = <YOUR_LINE_BOT_SECRET>
 ```
 
-4. run ngrok 5000 in terminal
-5. run the app.py file
+4. run these command in your project cmd
+```cmd
+ngrok https 5000
+python app.py
+```
 and then you have it, a notify bot in your line
 
 credit:
