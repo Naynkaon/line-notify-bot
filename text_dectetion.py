@@ -7,6 +7,18 @@ DetectorFactory.seed = 0
 def check_calling(startword,text):
     return bool(re.search(startword, text))
 
+def convert_to_number(text):
+    # Fullwidth digits
+    text = re.sub(r'[\uFF10-\uFF19]', lambda x: chr(ord(x.group()) - 0xFF00 + 0x30), text)
+    # Chinese numerals
+    chinese_numerals = {
+        '一': '1', '二': '2', '三': '3', '四': '4', '五': '5',
+        '六': '6', '七': '7', '八': '8', '九': '9', '零': '0'
+    }
+    for cn, ascii in chinese_numerals.items():
+        text = text.replace(cn, ascii)
+    return text
+
 def mix_detect(text):
     # Count CJK characters (Traditional Chinese range)
     cjk_count = len(re.findall(r'[\u4E00-\u9FFF]', text))
@@ -23,11 +35,6 @@ def mix_detect(text):
     
     # Otherwise, use langdetect
     return detect(text)
-
-def detect_time_format(text):
-    pattern = r'\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)?'
-    times = re.findall(pattern,text)
-    return times
 
 def replace_format(text):
     pattern = r'(\d{1,2})/(\d{1,2})\s+(\d{1,2}):(\d{2})\s*(AM|PM)'
