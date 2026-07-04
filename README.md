@@ -2,6 +2,10 @@
 line notice robot is a semi-automatic bot that will auto notify you
 base on the text you given on LINE.
 
+#Note
+This branch is no longer updated due to a huge logic mistake. The main version of this repository is now available [here](https://github.com/Naynkaon/line-notify-bot/tree/main_v2).
+The legacy branch is still usable, but has a lot of bugs in the code.
+
 ## pre install
 1.clone this repository into your familer folder
 
