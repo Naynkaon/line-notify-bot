@@ -9,7 +9,20 @@ base on the text you given on LINE.
 git clone https://github.com/Naynkaon/line-notify-bot.git
 ```
 
-2. install [ngrok](https://ngrok.com/download/windows) in your computer
+2.install [ngrok](https://ngrok.com/download/windows) in your computer
+
+3.install [ollama](https://ollama.com/download) in your computer, and run this in your CMD so python can use it
+```bash
+pip install ollama
+```
+
+4.install the ai model you want to use as the summary tool
+```bash
+#use qwen2.5:1.5b as example, can switch to the ai you want in .env
+
+ollama pull qwen2.5:1.5b
+```
+you can find more ollama model in [here](https://ollama.com/search).
 
 ## setup
 
